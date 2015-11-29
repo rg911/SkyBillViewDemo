@@ -177,15 +177,15 @@
             </div>
             <div>
                 <p class="statement-header"><strong>Statement Date</strong></p>
-                <p>@Model.Statement.Generated.ToShortDateString()</p>
+                <p>@Model.Statement.Generated.ToString("dd'/'MM'/'yyyy")</p>
             </div>
             <div>
                 <p class="statement-header"><strong>Billing Period</strong></p>
-                <p>@Model.Statement.Period.PeriodFrom.ToShortDateString() to @Model.Statement.Period.PeriodTo.ToShortDateString()</p>
+                <p>@Model.Statement.Period.PeriodFrom.ToString("dd'/'MM'/'yyyy") to @Model.Statement.Period.PeriodTo.ToString("dd'/'MM'/'yyyy")</p>
             </div>
             <div>
                 <p class="statement-header"><strong>Due Date</strong></p>
-                <p>@Model.Statement.Due.ToShortDateString()</p>
+                <p>@Model.Statement.Due.ToString("dd'/'MM'/'yyyy")</p>
             </div>
         </div>
     </div>
