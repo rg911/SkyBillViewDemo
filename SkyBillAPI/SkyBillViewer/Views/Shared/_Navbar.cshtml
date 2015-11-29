@@ -1,0 +1,150 @@
+﻿<div class="header header-static">
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <!-- Topbar Navigation -->
+                    <ul class="left-topbar">
+                        <li>
+                            <a>Language (EN)</a>
+                            <ul class="language">
+                                <li class="active">
+                                    <a href="#">English (EN)<i class="fa fa-check"></i></a>
+                                </li>
+                                <li><a href="#">Spanish (SPN)</a></li>
+                                <li><a href="#">Russian (RUS)</a></li>
+                                <li><a href="#">German (GRM)</a></li>
+                            </ul>
+                        </li>
+                    </ul><!--/end left-topbar-->
+                </div>
+                @{Html.RenderPartial("_LoginPartial");}
+            </div>
+        </div><!--/container-->
+    </div>
+    <div class="navbar navbar-default mega-menu" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new {area = ""}, null)">
+                    <img id="logo-header" src="~/Content/image/sky_logo.png" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-responsive-collapse">
+                <!-- Nav Menu -->
+                <ul class="nav navbar-nav pull-left">
+                    <!-- Home -->
+
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "dropdown active" : "dropdown")">
+                        <a href="@Url.Action("Index", "Home", new {area = ""}, null)">
+                            MVC
+                        </a>
+                    </li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index_AngularJS" ? "dropdown active" : "dropdown")">
+                        <a href="@Url.Action("Index_AngularJS", "Home", new {area = ""}, null)">
+                            AngularJS &amp; Web API
+                        </a>
+                    </li>
+                    <li class="dropdown mega-menu-fullwidth")">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown">
+                            My Sky
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="mega-menu-content">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-6">
+                                                <h3 class="mega-menu-heading">My Package</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">Review my package</a></li>
+                                                    <li><a href="#">Check my broadband</a></li>
+                                                    <li><a href="#">My extras</a></li>
+                                                    <li><a href="#">Sky Go</a></li>
+                                                    <li><a href="#">Sky at The O2</a></li>
+                                                    <li><a href="#">Introduce a Friend</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <h3 class="mega-menu-heading">Bills &amp; payments </h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">View my bill</a></li>
+                                                    <li><a href="#">Make a payment</a></li>
+                                                    <li><a href="#">Change payment due date</a></li>
+                                                    <li><a href="#">Change payment method</a></li>
+                                                </ul>
+                                                <h3 class="mega-menu-heading">My Orders</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">Track my order</a></li>
+                                                    <li><a href="#">Claim my reward</a></li>
+                                                    <li><a href="#">Enginee visits</a></li>
+                                                    <li><a href="#">Set up viewing card</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <h3 class="mega-menu-heading">My Details</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">Change details</a></li>
+                                                    <li><a href="#">Additional users</a></li>
+                                                    <li><a href="#">Moving home</a></li>
+                                                </ul>
+                                                <h3 class="mega-menu-heading">My Settings</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">TV PIN</a></li>
+                                                    <li><a href="#">Sky Go PIN</a></li>
+                                                    <li><a href="#">Broadband Shield</a></li>
+                                                    <li><a href="#">Broadband Pro</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <h3 class="mega-menu-heading">Upgrades</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">Offers</a></li>
+                                                    <li><a href="#">Sky Box Sets</a></li>
+                                                    <li><a href="#">HD</a></li>
+                                                    <li><a href="#">Sports</a></li>
+                                                    <li><a href="#">Movies</a></li>
+                                                    <li><a href="#">Sky Multiscreen</a></li>
+                                                    <li><a href="#">Broadband &amp; Talk</a></li>
+                                                    <li><a href="#">Customise your package</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="col-md-2 col-sm-6">
+                                                <h3 class="mega-menu-heading">Latest Support Issues</h3>
+                                                <ul class="list-unstyled style-list">
+                                                    <li><a href="#">Sky community</a></li>
+                                                    <li><a href="#">Complaints</a></li>
+                                                    <li><a href="#">Sky Help Video</a></li>
+                                                    <li><a href="#">Left Sky TV in the last 12 months?</a></li>
+                                                </ul>
+                                            </div>
+                                        </div><!--/end row-->
+                                    </div><!--/end container-->
+                                </div><!--/end mega menu content-->
+                            </li>
+                        </ul><!--/end dropdown-menu-->
+                    </li>
+                    
+                    @*<li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>*@
+                    <li><a href="@Url.Action("Cache", "SiteTools", new {area = ""}, null)">Site Tools</a></li>
+                    <li class="dropdown pull-right"><a href="~/elmah">Elmah error log</a></li>
+                    <li class="dropdown pull-right"><a href="~/Glimpse.axd">Glimpse profiling</a></li>
+                </ul>
+
+                @*@{Html.RenderPartial("_LoginPartial");}*@
+            </div><!--/end container-->
+        </div><!--/navbar-collapse-->
+    </div>
+</div>

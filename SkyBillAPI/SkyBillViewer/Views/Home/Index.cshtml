@@ -1,0 +1,193 @@
+﻿@model SkyBillViewer.Models.BillModel
+@{
+    ViewBag.Title = "View Bill";
+}
+
+    <div class="breadcrumbs">
+        <div class="container">
+            <h1 class="pull-left">My Sky Bill (MVC)</h1>
+            <ul class="pull-right breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index", "Home", null, null)">Home</a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Home", null, null)">My Sky</a>
+                </li>
+                <li class="active">Bills</li>
+            </ul>
+        </div>
+    </div>
+    <div class="container content">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Your Package
+                    </p>
+                </div>
+                <div class="panel-body" style="padding-top:0px;">
+                    <table class="table">
+                        @foreach (var sub in Model.Package.Subscriptions)
+                        {
+                            <tr>
+                                <td>
+                                    <p class="table-header"><strong>@sub.Type</strong></p>
+                                </td>
+                                <td class="table-text">
+                                    @sub.Name
+                                </td>
+                                <td class="table-text pull-right">
+                                    £@sub.Cost
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Package Charges
+                        </span>
+                        <span class="pull-right">
+                            £@Model.Package.Total
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Sky Store
+                    </p>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <p class="table-header"><strong>Rentals</strong></p>
+                            </th>
+                            <th class="pull-right">
+                                <p class="table-header"><strong>Cost</strong></p>
+                            </th>
+                        </tr>
+                        @foreach (var sub in Model.SkyStore.Rentals)
+                        {
+                            <tr>
+                                <td class="table-text">
+                                    @sub.Title
+                                </td>
+                                <td class="table-text pull-right">
+                                    £@sub.Cost
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                    <table class="table">
+                        <tr>
+                            <th colspan="2">
+                                <p class="table-header"><strong>Buy and keep</strong></p>
+                            </th>
+
+                        </tr>
+                        @foreach (var sub in Model.SkyStore.BuyAndKeep)
+                        {
+                            <tr>
+                                <td class="table-text">
+                                    @sub.Title
+                                </td>
+                                <td class="table-text pull-right">
+                                    £@sub.Cost
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Sky Store Charges
+                        </span>
+                        <span class="pull-right">
+                            £@Model.CallCharge.Total
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Calls
+                    </p>
+                </div>
+                <div class="panel-body">
+                    <table class="table" id="internalActivities" data-max="@Model.CallCharge.Calls.Count()">
+                        <tr>
+                            <th>
+                                <p class="table-header"><strong>Call Number</strong></p>
+                            </th>
+                            <th>
+                                <p class="table-header"><strong>Duration</strong></p>
+                            </th>
+                            <th class="pull-right">
+                                <p class="table-header"><strong>Cost</strong></p>
+                            </th>
+                        </tr>
+                        @foreach (var sub in Model.CallCharge.Calls)
+                        {
+                            <tr>
+                                <td class="table-text">
+                                    @sub.Called
+                                </td>
+                                <td class="table-text">
+                                    @sub.Duration
+                                </td>
+                                <td class="table-text pull-right">
+                                    £@sub.Cost
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                    <div class="pull-right">
+                        <a href="/" id="seeMoreRecords" style="font-size: 30px; color: #777; margin-right:10px;"><i class="fa fa-plus-square-o"></i></a>
+                        <a href="/" id="seeLessRecords" style="font-size: 30px; color: #777; margin-right:10px;"><i class="fa fa-minus-square-o"></i></a>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Call Charges
+                        </span>
+                        <span class="pull-right">
+                            £@Model.CallCharge.Total
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div>
+                <p class="statement-header"><strong>Current Balance</strong></p>
+                <p class="statement-total">£@Model.Total.ToString()</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Statement Date</strong></p>
+                <p>@Model.Statement.Generated.ToShortDateString()</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Billing Period</strong></p>
+                <p>@Model.Statement.Period.PeriodFrom.ToShortDateString() to @Model.Statement.Period.PeriodTo.ToShortDateString()</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Due Date</strong></p>
+                <p>@Model.Statement.Due.ToShortDateString()</p>
+            </div>
+        </div>
+    </div>
+</div>
+

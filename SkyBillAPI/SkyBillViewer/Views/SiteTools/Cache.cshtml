@@ -1,0 +1,76 @@
+﻿@model SkyBillViewer.Models.CacheViewModel
+@{
+    ViewBag.Title = "Cache Management";
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @if(!string.IsNullOrEmpty(Model.Message))
+            {
+                @:setTimeout(function(){ $('#divMsg').hide(); }, 10000);
+            }
+
+        });
+    </script>
+}
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">Site Tools - Cache</h1>
+        <ul class="pull-right breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home", null, null)">Home</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Cache", "SiteTools", null, null)">Site Tools</a>
+            </li>
+            <li class="active">Cache</li>
+        </ul>
+    </div>
+</div>
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12">
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <div id="divMsg" class="alert alert-success fade in">
+                    @Model.Message
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-md-6">
+                <fieldset>
+                    <legend>Cache Management</legend>
+                    <label for="btnFlushCache" class="btn btn-default"><i class="icon-remove icon-white"></i> FlushCache</label>
+                    <input type="submit" name="btnFlushCache" id="btnFlushCache" class="hidden" value="FlushCache" />
+
+                    <div class="clearfix">&nbsp;</div>
+
+                    <p>@Model.CacheMemoryFree</p>
+
+                    <div class="clearfix">&nbsp;</div>
+
+                    @if (!Model.CacheItems.Any())
+                    {
+                        <p>Cache is empty</p>
+                    }
+                    else
+                    {
+                      <table class="table table-striped">
+                          @foreach (var item in Model.CacheItems)
+                          {
+                              <tr><td>@item.Key</td></tr>
+                          }
+                      </table>
+                    }
+                </fieldset>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,174 @@
+﻿@{
+    ViewBag.Title = "View Bill";
+}
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">My Sky Bill (AngularJS+WebApi)</h1>
+        <ul class="pull-right breadcrumb">
+            <li>
+                <a href="@Url.Action("Index_AngularJS", "Home", null, null)">Home</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index_AngularJS", "Home", null, null)">My Sky</a>
+            </li>
+            <li class="active">Bills</li>
+        </ul>
+    </div>
+</div>
+<div class="container content" ng-app="BillApp" ng-controller="BillController" ng-cloak>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Your Package
+                    </p>
+                </div>
+                <div class="panel-body" style="padding-top:0px;">
+                    <table class="table">
+                            <tr ng-repeat="sub in bill.Package.subscriptions">
+                                <td>
+                                    <p class="table-header"><strong>{{sub.Type}}</strong></p>
+                                </td>
+                                <td class="table-text">
+                                    {{sub.Name}}
+                                </td>
+                                <td class="table-text pull-right">
+                                   {{sub.Cost | currency:"£":2}}
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Package Charges
+                        </span>
+                        <span class="pull-right">
+                            {{bill.Package.Total | currency:"£":2}}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Sky Store
+                    </p>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <p class="table-header"><strong>Rentals</strong></p>
+                            </th>
+                            <th class="pull-right">
+                                <p class="table-header"><strong>Cost</strong></p>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="rent in bill.skyStore.rentals">
+                            <td class="table-text">
+                                {{rent.Title}}
+                            </td>
+                            <td class="table-text pull-right">
+                                {{rent.Cost | currency:"£":2}}
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table">
+                        <tr>
+                            <th colspan="2">
+                                <p class="table-header"><strong>Buy and keep</strong></p>
+                            </th>
+
+                        </tr>
+                        <tr ng-repeat="sub in bill.skyStore.buyAndKeep">
+                            <td class="table-text">
+                                {{sub.Title}}
+                            </td>
+                            <td class="table-text pull-right">
+                                {{sub.Cost | currency:"£":2}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Sky Store Charges
+                        </span>
+                        <span class="pull-right">
+                            {{bill.skyStore.Total | currency:"£":2}}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+            <div class="panel panel-dark equal-height-column">
+                <div class="panel-heading" style="padding-bottom:0px;">
+                    <p class="panel-header-text">
+                        Calls
+                    </p>
+                </div>
+                <div class="panel-body" ng-init="start = 0; end = 6;">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <p class="table-header"><strong>Call Number</strong></p>
+                            </th>
+                            <th>
+                                <p class="table-header"><strong>Duration</strong></p>
+                            </th>
+                            <th class="pull-right">
+                                <p class="table-header"><strong>Cost</strong></p>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="sub in bill.callCharges.calls | slice:start:end">
+                            <td class="table-text">
+                                {{sub.Called}}
+                            </td>
+                            <td class="table-text">
+                                <span>{{sub.Duration}} </span>
+                            </td>
+                            <td class="table-text pull-right">
+                                {{sub.Cost | currency:"£":2}}
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="pull-right">
+                        <a href="#" style="font-size: 30px; color: #777; margin-right:10px;" ng-model="end "ng-click="showMore()" ng-show="end == 6"><i class="fa fa-plus-square-o"></i></a>
+                        <a href="#" style="font-size: 30px; color: #777; margin-right:10px;" ng-model="end "ng-click="showLess()" ng-hide="end == 6" ><i class="fa fa-minus-square-o"></i></a>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <h3 class="panel-title">
+                        <span>
+                            Total Call Charges
+                        </span>
+                        <span class="pull-right">
+                            {{bill.callCharges.Total | currency:"£":2}}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div>
+                <p class="statement-header"><strong>Current Balance</strong></p>
+                <p class="statement-total">{{bill.Total | currency:"£":2}}</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Statement Date</strong></p>
+                <p>{{bill.statement.Generated | date:"dd/MM/yyyy"}}</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Billing Period</strong></p>
+                <p>{{bill.statement.period.from | date:"dd/MM/yyyy"}} to {{bill.statement.period.to | date:"dd/MM/yyyy"}}</p>
+            </div>
+            <div>
+                <p class="statement-header"><strong>Due Date</strong></p>
+                <p>{{bill.statement.Due| date:"dd/MM/yyyy"}}</p>
+            </div>
+        </div>
+    </div>
+</div>
